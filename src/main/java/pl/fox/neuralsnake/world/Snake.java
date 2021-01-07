@@ -18,6 +18,7 @@ public class Snake {
     private int[] y;
     private int length;
     private int score;
+    private int age;
 
     private boolean isUp, isDown, isLeft, isRight;
     private boolean isDead;
@@ -29,6 +30,7 @@ public class Snake {
     public void init(){
         dna = new DNA(true, 10);
         score = 0;
+        age = 0;
         length = INITIAL_LENGTH;
 
         x = new int[World.ALL_MODULES];
@@ -39,6 +41,7 @@ public class Snake {
         isRight = true;
 
         //TODO: Randomize spawn and initial direction later
+        LOG.info("Initialized {}", this.getClass().getSimpleName());
     }
 
     public void update(){
@@ -52,6 +55,10 @@ public class Snake {
         for(int i = 1; i < length; i++){
             g.drawRect(x[i], y[i], World.MODULE_SIZE, World.MODULE_SIZE);
         }
+    }
+
+    private void randomizeSpawn(){
+
     }
 
     public int[] getX() {

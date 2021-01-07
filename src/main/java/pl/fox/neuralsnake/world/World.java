@@ -9,31 +9,35 @@ public class World {
     protected static final int ALL_MODULES = B_WIDTH * B_HEIGHT;
     protected static final int MODULE_SIZE = 10;
 
-    //private final java.util.List<Snake> snakes;
-
     private Snake snake;
     private Field field;
 
+    private boolean isPaused;
 
     public World(){
-        //snakes = new java.util.ArrayList<>();
-
         snake = new Snake();
         field = new Field();
+
+        isPaused = false;
 
         snake.init();
         field.init();
     }
 
-//    public void init(){
-//        snake = new Snake();
-//        field = new Field();
-//
-//        snake.init();
-//        field.init();
-//    }
+/*    public void init(){
+        snake = new Snake();
+        field = new Field();
+
+        snake.init();
+        field.init();
+        isPaused = false;
+    }*/
 
     public void update(){
+        if(isPaused){
+            return;
+        }
+
         snake.update();
         field.update();
     }
@@ -43,4 +47,7 @@ public class World {
         field.render(g);
     }
 
+    public void setPaused(boolean paused) {
+        isPaused = paused;
+    }
 }
