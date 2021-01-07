@@ -19,6 +19,7 @@ public class Snake {
     private int length;
     private int score;
     private int fitness;
+    private int health;
     private int age;
 
     private boolean isUp, isDown, isLeft, isRight;
@@ -27,6 +28,7 @@ public class Snake {
 
     public Snake(DNA dna){
         brain = new NeuralNetwork();
+        reloadCoeffs();
         int dnaLength = brain.calculateCoefficientsNumber(isBrainSymetric) + 1;
 
         this.dna = (dna != null) ? dna : new DNA(true, dnaLength);
@@ -38,6 +40,8 @@ public class Snake {
         age = 0;
         length = INITIAL_LENGTH;
 
+        health = World.APPLE_CALORIES * 3 / 2;
+
         x = new int[World.ALL_MODULES];
         y = new int[World.ALL_MODULES];
 
@@ -46,7 +50,6 @@ public class Snake {
         isRight = true;
 
         //TODO: Randomize spawn and initial direction later
-        brain = new NeuralNetwork();
     }
 
     public void update(){
@@ -64,6 +67,14 @@ public class Snake {
 
     private void randomizeSpawn(){
 
+    }
+
+    private void reloadCoeffs(){
+        if(isBrainSymetric){
+            brain.loadSymmetrically(dna.getHelix());
+        }else{
+            brain.loadCoefficients(dna.getHelix());
+        }
     }
 
     public DNA getDna() {

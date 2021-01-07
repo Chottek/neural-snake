@@ -12,6 +12,8 @@ public class World {
     protected static final int GENERATION_COUNT = 5;
     protected static final int FOOD_COUNT = 4;
 
+    protected static final int APPLE_CALORIES = 10;
+
     private Nest nest;
     private Field field;
 
