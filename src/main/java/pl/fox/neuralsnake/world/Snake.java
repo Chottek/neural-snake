@@ -5,8 +5,10 @@ import pl.fox.neuralsnake.util.DNA;
 import pl.fox.neuralsnake.util.NeuralNetwork;
 
 import java.awt.*;
+import java.util.Random;
+import java.util.stream.IntStream;
 
-import static pl.fox.neuralsnake.world.World.MODULE_SIZE;
+import static pl.fox.neuralsnake.world.World.*;
 
 public class Snake {
 
@@ -48,15 +50,19 @@ public class Snake {
         y = new int[World.ALL_MODULES];
 
         isDead = false;
-        isUp = isLeft = isDown = false;
-        isRight = true;
-
-        //TODO: Randomize spawn and initial direction later
+        isUp = isLeft = isDown = isRight = false;
+        randomizeSpawn();
     }
 
     public void update(){
-        //manageHealth();
+        if (isDead) {
+            deathHue -= 0.6D;
+            return;
+        }
+
+      //  manageHealth();
         move();
+        checkCollision();
     }
 
     public void render(Graphics2D g){
@@ -69,7 +75,22 @@ public class Snake {
     }
 
     private void randomizeSpawn(){
+        Random rand = new Random();
 
+        int iks = rand.nextInt(B_WIDTH) ;
+        int ygr = rand.nextInt(B_HEIGHT);
+
+        for (int i = 0; i < length; i++) {
+            x[i] = iks - (i * 10);
+            y[i] = ygr;
+        }
+
+        switch(rand.nextInt(4)){
+            case 0: isUp = true; break;
+            case 1: isDown = true; break;
+            case 2: isLeft = true; break;
+            case 3: isRight = true; break;
+        }
     }
 
     private void move(){
@@ -91,9 +112,18 @@ public class Snake {
             y[0] += MODULE_SIZE;
     }
 
-    private boolean getEnviromentalInfo(){
-        //Locate food, walls and modules
-        return true;
+    private int getEnviromentalInfo(){
+        //Locate food, walls and modules, return direction
+        return 0;
+    }
+
+    private void checkCollision() {
+        if (IntStream.iterate(length, i -> i > 0, i -> i - 1).anyMatch(i -> (i > 3) && (x[0] == x[i]) && (y[0] == y[i]))) {
+            isDead = true;
+        }
+
+        if (y[0] < 0 || y[0] >= World.B_HEIGHT) isDead = true;
+        if (x[0] < 0 || x[0] >= World.B_WIDTH - MODULE_SIZE)  isDead = true;
     }
 
     private void manageHealth(){

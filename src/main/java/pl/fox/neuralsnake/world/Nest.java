@@ -41,7 +41,7 @@ public class Nest {
             processFitnessValues(s);
         });
 
-        makeNewSnakes();
+       // makeNewSnakes();
         removeDeadSnakes();
     }
 
