@@ -11,12 +11,12 @@ public class Field {
 
     private static final int RAND_POS_X = World.B_WIDTH / 10;
     private static final int RAND_POS_Y = World.B_HEIGHT / 10;
+    private static final int APPLE_CALORIES = 10;               //POINTS FROM EATING APPLE
 
     private final java.util.List<Apple> apples;
 
     public Field(){
         apples = new java.util.ArrayList<>();
-
         generateFood();
     }
 
@@ -29,7 +29,7 @@ public class Field {
             rand = (int) (Math.random() * RAND_POS_Y);
             y = (rand * World.MODULE_SIZE);
 
-            apples.add(new Apple(x, y));
+            apples.add(new Apple(x, y, APPLE_CALORIES));
         }
         LOG.info("Initialized a Field of {} apples", apples.size());
     }
