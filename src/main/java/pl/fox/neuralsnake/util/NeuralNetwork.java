@@ -5,10 +5,9 @@ import java.util.stream.IntStream;
 
 public class NeuralNetwork {
 
-    private Stage[] stages;
-
-    private static final int INPUT_STAGE = 5;
-    private static final int[] stageSizes = new int[] { INPUT_STAGE, 4, 1};
+    private final Stage[] stages;
+    private static final int INPUT_STAGE = 14;
+    private static final int[] stageSizes = new int[] { INPUT_STAGE, 7, 4};
 
     public NeuralNetwork() {
         stages = new Stage[stageSizes.length];
