@@ -30,4 +30,8 @@ public class Apple {
     public int getY() {
         return y;
     }
+
+    public int getCalories() {
+        return calories;
+    }
 }
