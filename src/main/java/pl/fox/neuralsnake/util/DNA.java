@@ -39,4 +39,8 @@ public class DNA {
     public java.awt.Color getColor() {
         return color;
     }
+
+    public void setColor(java.awt.Color color){
+        this.color = color;
+    }
 }
