@@ -16,6 +16,7 @@ public class Field {
     public Field(){
         apples = new java.util.ArrayList<>();
         generateApples();
+        LOG.info("Initialized Field with {} apples", apples.size());
     }
 
 
