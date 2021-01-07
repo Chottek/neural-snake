@@ -53,6 +53,8 @@ public class World {
                 if(s.getHeadX() == field.getApples().get(i).getX() && s.getHeadY() == field.getApples().get(i).getY()){
                     field.getApples().remove(i);
                     s.addLength();
+                    s.addScore(APPLE_CALORIES);
+                    field.generateApples();
                 }
             }
         }

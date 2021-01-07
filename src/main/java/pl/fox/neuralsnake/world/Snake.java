@@ -147,6 +147,10 @@ public class Snake {
 
     //Getters / setters
 
+    public void addScore(int score){
+        this.score += score;
+    }
+
     public void addLength(){
         length++;
     }

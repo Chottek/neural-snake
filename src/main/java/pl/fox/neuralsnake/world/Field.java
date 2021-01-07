@@ -15,21 +15,24 @@ public class Field {
 
     public Field(){
         apples = new java.util.ArrayList<>();
-        generateFood();
+        generateApples();
     }
 
-    private void generateFood(){
+
+    public void generateApples(){
         int rand, x, y;
-        for(int i = 0; i < World.FOOD_COUNT; i++){
-            rand = (int) (Math.random() * RAND_POS_X);
-            x = (rand * World.MODULE_SIZE);
 
-            rand = (int) (Math.random() * RAND_POS_Y);
-            y = (rand * World.MODULE_SIZE);
+        rand = (int) (Math.random() * RAND_POS_X);
+        x = (rand * World.MODULE_SIZE);
 
-            apples.add(new Apple(x, y, World.APPLE_CALORIES));
+        rand = (int) (Math.random() * RAND_POS_Y);
+        y = (rand * World.MODULE_SIZE);
+
+        apples.add(new Apple(x, y, World.APPLE_CALORIES));
+
+        if(apples.size() < World.FOOD_COUNT){
+            generateApples();
         }
-        LOG.info("Initialized a Field of {} apples", apples.size());
     }
 
     public void update(){
