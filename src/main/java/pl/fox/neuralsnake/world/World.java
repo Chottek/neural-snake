@@ -1,9 +1,6 @@
 package pl.fox.neuralsnake.world;
 
-import pl.fox.neuralsnake.util.DNA;
-
 import java.awt.*;
-import java.util.stream.IntStream;
 
 public class World {
 
@@ -13,6 +10,7 @@ public class World {
     protected static final int MODULE_SIZE = 10;
 
     protected static final int GENERATION_COUNT = 5;
+    protected static final int FOOD_COUNT = 4;
 
     private Nest nest;
     private Field field;

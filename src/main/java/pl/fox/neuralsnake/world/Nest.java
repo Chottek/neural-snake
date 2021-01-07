@@ -12,11 +12,13 @@ public class Nest {
 
     private static final Logger LOG = LoggerFactory.getLogger(Nest.class);
 
-    private java.util.List<Snake> snakes;
+    private final java.util.List<Snake> snakes;
     private final int size;
 
     private double mutationRate = 0.02D;
     private double currentFittestValue = 0;
+    private int generationCount;
+
 
     private DNA bestDNA;
 
@@ -39,7 +41,7 @@ public class Nest {
         snakes.clear();
         IntStream.range(0, size).forEach(i -> snakes.add(new Snake(null)));
         snakes.forEach(Snake::init);
-
+        generationCount = 1;
         LOG.info("Initialized a Nest of {} snakes", size);
     }
 
