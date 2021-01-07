@@ -1,5 +1,7 @@
 package pl.fox.neuralsnake.world;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.fox.neuralsnake.util.DNA;
 import pl.fox.neuralsnake.util.GeneticUtils;
 
@@ -7,6 +9,8 @@ import java.awt.*;
 import java.util.stream.IntStream;
 
 public class Nest {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Nest.class);
 
     private java.util.List<Snake> snakes;
     private final int size;
@@ -35,6 +39,8 @@ public class Nest {
         snakes.clear();
         IntStream.range(0, size).forEach(i -> snakes.add(new Snake()));
         snakes.forEach(Snake::init);
+
+        LOG.info("Initialized a Nest of {} snakes", size);
     }
 
 

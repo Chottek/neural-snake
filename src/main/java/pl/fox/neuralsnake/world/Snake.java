@@ -1,14 +1,11 @@
 package pl.fox.neuralsnake.world;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import pl.fox.neuralsnake.util.DNA;
 
 import java.awt.*;
 
 public class Snake {
-
-    private static final Logger LOG = LoggerFactory.getLogger(Snake.class);
 
     private static final int INITIAL_LENGTH = 3;
 
@@ -47,7 +44,6 @@ public class Snake {
         isRight = true;
 
         //TODO: Randomize spawn and initial direction later
-        LOG.info("Initialized {}", this.getClass().getSimpleName());
     }
 
     public void update(){
