@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pl.fox.neuralsnake.display.Display;
 import pl.fox.neuralsnake.input.KeyInput;
+import pl.fox.neuralsnake.world.World;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -11,6 +12,7 @@ import java.awt.image.BufferStrategy;
 public class Game implements Runnable {
 
     private static final Logger LOG = LoggerFactory.getLogger(Game.class);
+    private static final int FPS = 20;
 
     private Display display;
 
@@ -48,7 +50,6 @@ public class Game implements Runnable {
     @Override
     public void run() {
         init();
-        final int FPS = 20;
         double timePerTick = 1000000000 / FPS;
         double delta = 0;
         long now = 0;

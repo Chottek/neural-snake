@@ -1,4 +1,4 @@
-package pl.fox.neuralsnake;
+package pl.fox.neuralsnake.world;
 
 import java.awt.*;
 

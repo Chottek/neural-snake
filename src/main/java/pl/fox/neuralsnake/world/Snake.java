@@ -1,8 +1,11 @@
-package pl.fox.neuralsnake;
+package pl.fox.neuralsnake.world;
 
 import java.awt.*;
 
 public class Snake {
+
+    private float x;
+    private float y;
 
     public Snake(){
 
@@ -17,4 +20,11 @@ public class Snake {
         g.drawRect(10, 10, 10, 10);
     }
 
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
 }
