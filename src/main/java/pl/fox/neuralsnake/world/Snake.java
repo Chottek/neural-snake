@@ -4,11 +4,14 @@ import java.awt.*;
 
 public class Snake {
 
+    private static final int INITIAL_LENGTH = 3;
+
     private float x;
     private float y;
+    private int length;
 
     public Snake(){
-
+        length = INITIAL_LENGTH;
     }
 
     public void update(){

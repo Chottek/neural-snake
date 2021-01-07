@@ -1,6 +1,8 @@
 package pl.fox.neuralsnake.util;
 
 
+import java.util.stream.IntStream;
+
 public class DNA {
 
     private final java.util.Random random;
@@ -16,6 +18,11 @@ public class DNA {
         for (int i = 0; i < size; i++) {
             helix[i] = random ? (byte) Math.floor(Math.random() * 256d) : 0;
         }
+    }
+
+    public void mutateNoise(double probability, double mag) {
+        IntStream.range(0, helix.length).filter(i -> Math.random() < probability)
+                .forEach(i -> helix[i] += (byte) (random.nextGaussian() * mag * 256));
     }
 
     public byte[] getHelix() {
