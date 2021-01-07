@@ -11,8 +11,6 @@ public class Field {
 
     private static final int RAND_POS_X = World.B_WIDTH / 10;
     private static final int RAND_POS_Y = World.B_HEIGHT / 10;
-
-
     private final java.util.List<Apple> apples;
 
     public Field(){
