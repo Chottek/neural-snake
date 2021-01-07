@@ -4,10 +4,14 @@ import java.awt.*;
 
 public class World {
 
+    //private final java.util.List<Snake> snakes;
+
     private final Snake snake;
     private final Field field;
 
     public World(){
+        //snakes = new java.util.ArrayList<>();
+
         snake = new Snake();
         field = new Field();
     }
