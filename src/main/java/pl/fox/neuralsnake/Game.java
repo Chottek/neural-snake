@@ -33,10 +33,30 @@ public class Game implements Runnable{
     @Override
     public void run() {
         init();
+        final int FPS = 20;
+        double timePerTick = 1000000000 / FPS;
+        double delta = 0;
+        long now = 0;
+        long lastTime = System.nanoTime();
+        long timer = 0;
 
         while(isRunning){
+            now = System.nanoTime();
+            delta += (now - lastTime) / timePerTick;
+            timer += now - lastTime;
+            lastTime = now;
 
+            if(delta >= 1){
+                update();
+                render();
+                delta--;
+            }
+
+            if(timer >= 1000000000){
+                timer = 0;
+            }
         }
+        stop();
     }
 
     private void update(){
