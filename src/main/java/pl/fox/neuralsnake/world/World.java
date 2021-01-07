@@ -54,4 +54,12 @@ public class World {
     public boolean isPaused() {
         return isPaused;
     }
+
+    public Nest getNest() {
+        return nest;
+    }
+
+    public Field getField() {
+        return field;
+    }
 }

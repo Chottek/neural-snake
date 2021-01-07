@@ -6,6 +6,7 @@ import pl.fox.neuralsnake.util.DNA;
 import pl.fox.neuralsnake.util.GeneticUtils;
 
 import java.awt.*;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class Nest {
@@ -116,5 +117,7 @@ public class Nest {
         return pool;
     }
 
-
+    public List<Snake> getSnakes() {
+        return snakes;
+    }
 }

@@ -16,6 +16,7 @@ public class Game implements Runnable {
 
     private Display display;
 
+    private final Handler handler;
     private final KeyInput keyInput;
     private final World world;
 
@@ -37,6 +38,7 @@ public class Game implements Runnable {
         this.width = width;
         this.height = height;
 
+        handler = new Handler(this);
         keyInput = new KeyInput();
         world = new World();
         info = new Info();
@@ -130,5 +132,9 @@ public class Game implements Runnable {
                 ie.printStackTrace();
             }
         }
+    }
+
+    public World getWorld() {
+        return world;
     }
 }
