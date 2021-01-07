@@ -73,8 +73,10 @@ public class Game implements Runnable{
         g = bs.getDrawGraphics();
 
         Graphics2D g2d = (Graphics2D) g;
-
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.clearRect(0, 0, width, height);
+
+        //TODO: Render Snake and field here
 
         bs.show();
         g2d.dispose();
