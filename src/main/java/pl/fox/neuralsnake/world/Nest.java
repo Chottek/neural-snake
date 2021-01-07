@@ -19,6 +19,7 @@ public class Nest {
     private double currentFittestValue = 0;
     private int generationCount;
 
+    private int tempDeathCount = 0;
 
     private DNA bestDNA;
     private double record;
@@ -32,17 +33,16 @@ public class Nest {
     }
 
     public void update(){
+        tempDeathCount = 0;
+
         snakes.forEach(s -> {
             s.update();
-
-            if (s.getFitness() > currentFittestValue) {
-                currentFittestValue = s.getFitness();
-            }
-            if (s.getFitness() > record) {
-                record = s.getFitness();
-                bestDNA = s.getDna();
-            }
+            checKIfIsDead(s);
+            processFitnessValues(s);
         });
+
+        makeNewSnakes();
+        removeDeadSnakes();
     }
 
     public void render(Graphics2D g){
@@ -57,6 +57,34 @@ public class Nest {
         LOG.info("Initialized a Nest of {} snakes", size);
     }
 
+    private void makeNewSnakes(){
+        if(tempDeathCount > 0){
+            IntStream.range(0, tempDeathCount).forEach(i -> {
+                addNewSnake();
+                generationCount += 1 / (double) size;
+            });
+        }
+    }
+
+    private void removeDeadSnakes(){
+        snakes.removeIf(s -> s.getDeathHue() <= 0);
+    }
+
+    private void checKIfIsDead(Snake s){
+        if(s.isDead()){
+            tempDeathCount++;
+        }
+    }
+
+    private void processFitnessValues(Snake s){
+        if (s.getFitness() > currentFittestValue) {
+            currentFittestValue = s.getFitness();
+        }
+        if (s.getFitness() > record) {
+            record = s.getFitness();
+            bestDNA = s.getDna();
+        }
+    }
 
     private void addNewSnake(){
         mutationRate = 10 / currentFittestValue;
@@ -87,9 +115,6 @@ public class Nest {
         }
         return pool;
     }
-
-
-
 
 
 }

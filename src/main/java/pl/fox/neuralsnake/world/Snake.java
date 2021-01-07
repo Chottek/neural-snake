@@ -28,6 +28,8 @@ public class Snake {
     private boolean isDead;
     private boolean isBrainSymetric;
 
+    private double deathHue = 180;
+
     public Snake(DNA dna){
         brain = new NeuralNetwork();
         int dnaLength = brain.calculateCoefficientsNumber(isBrainSymetric) + 1;
@@ -53,7 +55,7 @@ public class Snake {
     }
 
     public void update(){
-        manageHealth();
+        //manageHealth();
         move();
     }
 
@@ -106,7 +108,7 @@ public class Snake {
             score /= 2;
         }
 
-        age += 0.1D;
+        age += 0.01D;
     }
 
     private void reloadCoeffs(){
@@ -121,6 +123,10 @@ public class Snake {
         return dna;
     }
 
+    public boolean isDead() {
+        return isDead;
+    }
+
     public int[] getX() {
         return x;
     }
@@ -131,5 +137,9 @@ public class Snake {
 
     public int getFitness() {
         return score + (health / 4);
+    }
+
+    public double getDeathHue() {
+        return deathHue;
     }
 }
