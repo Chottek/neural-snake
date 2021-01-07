@@ -2,6 +2,9 @@ package pl.fox.neuralsnake;
 
 import pl.fox.neuralsnake.display.Display;
 
+import java.awt.*;
+import java.awt.image.BufferStrategy;
+
 public class Game implements Runnable{
 
     private Display display;
@@ -13,6 +16,9 @@ public class Game implements Runnable{
     private boolean isRunning = false;
 
     private Thread gameThread;
+
+    private BufferStrategy bs;
+    private Graphics g;
 
     public Game(String title, int width, int height) {
         this.title = title;
@@ -31,6 +37,27 @@ public class Game implements Runnable{
         while(isRunning){
 
         }
+    }
+
+    private void update(){
+
+    }
+
+    private void render(){
+        bs = display.getCanvas().getBufferStrategy();
+        if(bs == null){
+            display.getCanvas().createBufferStrategy(3);
+            return;
+        }
+
+        g = bs.getDrawGraphics();
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        g2d.clearRect(0, 0, width, height);
+
+        bs.show();
+        g2d.dispose();
     }
 
     public synchronized void start(){
