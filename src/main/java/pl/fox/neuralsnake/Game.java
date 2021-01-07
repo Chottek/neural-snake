@@ -72,7 +72,7 @@ public class Game implements Runnable {
     }
 
     private void update(){
-        LOG.info("{}", keyInput.getKeyCode());
+        keyInput.update();
     }
 
     private void render(){
