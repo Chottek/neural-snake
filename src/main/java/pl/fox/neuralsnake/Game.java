@@ -13,7 +13,9 @@ public class Game implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(Game.class);
 
     private Display display;
-    private KeyInput keyInput;
+
+    private final KeyInput keyInput;
+    private final World world;
 
     private final String title;
     private final int width;
@@ -32,6 +34,7 @@ public class Game implements Runnable {
         this.height = height;
 
         keyInput = new KeyInput();
+        world = new World();
     }
 
     private void init(){
@@ -73,6 +76,7 @@ public class Game implements Runnable {
 
     private void update(){
         keyInput.update();
+        world.update();
     }
 
     private void render(){
@@ -88,7 +92,7 @@ public class Game implements Runnable {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.clearRect(0, 0, width, height);
 
-        //TODO: Render Snake and field here
+        world.render(g2d);
 
         bs.show();
         g2d.dispose();

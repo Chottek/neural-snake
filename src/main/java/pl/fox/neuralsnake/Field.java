@@ -2,9 +2,9 @@ package pl.fox.neuralsnake;
 
 import java.awt.*;
 
-public class Snake {
+public class Field {
 
-    public Snake(){
+    public Field(){
 
     }
 
@@ -13,8 +13,8 @@ public class Snake {
     }
 
     public void render(Graphics2D g){
-        g.setColor(Color.BLUE);
-        g.drawRect(10, 10, 10, 10);
+
     }
+
 
 }
