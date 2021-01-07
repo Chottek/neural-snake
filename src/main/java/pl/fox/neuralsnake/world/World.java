@@ -1,6 +1,9 @@
 package pl.fox.neuralsnake.world;
 
+import pl.fox.neuralsnake.util.DNA;
+
 import java.awt.*;
+import java.util.stream.IntStream;
 
 public class World {
 
@@ -9,43 +12,39 @@ public class World {
     protected static final int ALL_MODULES = B_WIDTH * B_HEIGHT;
     protected static final int MODULE_SIZE = 10;
 
-    private Snake snake;
+    protected static final int GENERATION_COUNT = 5;
+
+    private Nest nest;
     private Field field;
 
     private boolean isPaused;
 
     public World(){
-        snake = new Snake();
-        field = new Field();
-
-        isPaused = false;
-
-        snake.init();
-        field.init();
+        init();
     }
 
-/*    public void init(){
-        snake = new Snake();
+    public void init(){
+        nest = new Nest(GENERATION_COUNT);
         field = new Field();
-
-        snake.init();
-        field.init();
         isPaused = false;
-    }*/
+    }
 
     public void update(){
         if(isPaused){
             return;
         }
 
-        snake.update();
+        nest.update();
         field.update();
     }
 
     public void render(Graphics2D g){
-        snake.render(g);
+        nest.render(g);
         field.render(g);
     }
+
+
+    //Getters & Setters
 
     public void setPaused(boolean paused) {
         isPaused = paused;

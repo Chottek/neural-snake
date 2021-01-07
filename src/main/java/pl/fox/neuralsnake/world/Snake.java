@@ -16,19 +16,25 @@ public class Snake {
 
     private int[] x;
     private int[] y;
+
     private int length;
     private int score;
+    private int fitness;
     private int age;
 
     private boolean isUp, isDown, isLeft, isRight;
     private boolean isDead;
 
     public Snake(){
+        dna = new DNA(true, 10); //TODO: Change 10 to a variable soon
+    }
 
+    public Snake(DNA dna){
+        this.dna = dna;
     }
 
     public void init(){
-        dna = new DNA(true, 10);
+        dna = new DNA(true, 10);  //TODO: Change 10 to a variable soon
         score = 0;
         age = 0;
         length = INITIAL_LENGTH;
@@ -61,11 +67,19 @@ public class Snake {
 
     }
 
+    public DNA getDna() {
+        return dna;
+    }
+
     public int[] getX() {
         return x;
     }
 
     public int[] getY() {
         return y;
+    }
+
+    public int getFitness() {
+        return fitness;
     }
 }
