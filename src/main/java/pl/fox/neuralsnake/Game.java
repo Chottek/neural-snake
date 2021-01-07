@@ -30,6 +30,8 @@ public class Game implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
 
+    private Info info;
+
     public Game(String title, int width, int height) {
         this.title = title;
         this.width = width;
@@ -37,6 +39,7 @@ public class Game implements Runnable {
 
         keyInput = new KeyInput();
         world = new World();
+        info = new Info();
     }
 
     private void init(){
@@ -70,6 +73,7 @@ public class Game implements Runnable {
 
             if(timer >= 1000000000){
                 timer = 0;
+                info.addSeconds();
             }
         }
         stop();
@@ -78,6 +82,7 @@ public class Game implements Runnable {
     private void update(){
         keyInput.update();
         world.update();
+        info.update();
 
         handleKeys();
     }
@@ -102,6 +107,7 @@ public class Game implements Runnable {
         g2d.clearRect(0, 0, width, height);
 
         world.render(g2d);
+        info.render(g2d);
 
         bs.show();
         g2d.dispose();

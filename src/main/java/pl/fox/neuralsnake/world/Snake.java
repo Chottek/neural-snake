@@ -27,10 +27,9 @@ public class Snake {
 
     public Snake(DNA dna){
         brain = new NeuralNetwork();
-        reloadCoeffs();
         int dnaLength = brain.calculateCoefficientsNumber(isBrainSymetric) + 1;
-
         this.dna = (dna != null) ? dna : new DNA(true, dnaLength);
+        reloadCoeffs();
     }
 
 
