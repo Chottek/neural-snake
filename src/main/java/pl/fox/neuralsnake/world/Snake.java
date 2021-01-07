@@ -76,8 +76,8 @@ public class Snake {
     private void randomizeSpawn(){
         Random rand = new Random();
 
-        int iks = rand.nextInt(B_WIDTH);
-        int ygr = rand.nextInt(B_HEIGHT);
+        int iks = MODULE_SIZE * rand.nextInt((B_WIDTH / MODULE_SIZE) + 1);
+        int ygr = MODULE_SIZE * rand.nextInt((B_HEIGHT / MODULE_SIZE) + 1);
 
         for (int i = 0; i < length; i++) {
             x[i] = iks - (i * 10);
@@ -144,6 +144,13 @@ public class Snake {
         }
     }
 
+
+    //Getters / setters
+
+    public void addLength(){
+        length++;
+    }
+
     public DNA getDna() {
         return dna;
     }
@@ -158,6 +165,14 @@ public class Snake {
 
     public int[] getY() {
         return y;
+    }
+
+    public int getHeadX() {
+        return x[0];
+    }
+
+    public int getHeadY(){
+        return y[0];
     }
 
     public int getFitness() {
