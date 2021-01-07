@@ -50,4 +50,8 @@ public class World {
     public void setPaused(boolean paused) {
         isPaused = paused;
     }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
 }

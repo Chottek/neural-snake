@@ -78,6 +78,14 @@ public class Game implements Runnable {
     private void update(){
         keyInput.update();
         world.update();
+
+        handleKeys();
+    }
+
+    private void handleKeys(){
+        if(keyInput.isPause()){
+            world.setPaused(!world.isPaused());
+        }
     }
 
     private void render(){
