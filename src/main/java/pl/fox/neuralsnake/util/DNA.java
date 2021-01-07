@@ -1,15 +1,18 @@
 package pl.fox.neuralsnake.util;
 
-
 import java.util.stream.IntStream;
 
 public class DNA {
 
     private final java.util.Random random;
+
+    private java.awt.Color color;
     private byte[] helix;
+
 
     public DNA(boolean rand, int size) {
         random = new java.util.Random();
+        randomizeColor();
         randomizeDNA(rand, size);
     }
 
@@ -20,6 +23,10 @@ public class DNA {
         }
     }
 
+    private void randomizeColor(){
+        color = new java.awt.Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
+    }
+
     public void mutateNoise(double probability, double mag) {
         IntStream.range(0, helix.length).filter(i -> Math.random() < probability)
                 .forEach(i -> helix[i] += (byte) (random.nextGaussian() * mag * 256));
@@ -27,5 +34,9 @@ public class DNA {
 
     public byte[] getHelix() {
         return helix;
+    }
+
+    public java.awt.Color getColor() {
+        return color;
     }
 }

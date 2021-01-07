@@ -1,10 +1,18 @@
 package pl.fox.neuralsnake.world;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.fox.neuralsnake.util.DNA;
+
 import java.awt.*;
 
 public class Snake {
 
+    private static final Logger LOG = LoggerFactory.getLogger(Snake.class);
+
     private static final int INITIAL_LENGTH = 3;
+
+    private DNA dna;
 
     private int[] x;
     private int[] y;
@@ -15,8 +23,13 @@ public class Snake {
     private boolean isDead;
 
     public Snake(){
-        length = INITIAL_LENGTH;
+
+    }
+
+    public void init(){
+        dna = new DNA(true, 10);
         score = 0;
+        length = INITIAL_LENGTH;
 
         x = new int[World.ALL_MODULES];
         y = new int[World.ALL_MODULES];
@@ -24,6 +37,8 @@ public class Snake {
         isDead = false;
         isUp = isLeft = isDown = false;
         isRight = true;
+
+        //TODO: Randomize spawn and initial direction later
     }
 
     public void update(){
@@ -31,8 +46,12 @@ public class Snake {
     }
 
     public void render(Graphics2D g){
-        g.setColor(Color.BLUE);
-        g.drawRect(10, 10, 10, 10);
+        g.setColor(Color.RED); //Head color
+        g.fillRect(x[0], y[0], World.MODULE_SIZE, World.MODULE_SIZE);
+        g.setColor(dna.getColor()); //body color
+        for(int i = 1; i < length; i++){
+            g.drawRect(x[i], y[i], World.MODULE_SIZE, World.MODULE_SIZE);
+        }
     }
 
     public int[] getX() {

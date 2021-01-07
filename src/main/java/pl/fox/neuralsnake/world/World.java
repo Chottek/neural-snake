@@ -4,14 +4,15 @@ import java.awt.*;
 
 public class World {
 
-    public static final int B_WIDTH = pl.fox.neuralsnake.Launcher.WIDTH;
-    public static final int B_HEIGHT = pl.fox.neuralsnake.Launcher.HEIGHT;
-    public static final int ALL_MODULES = B_WIDTH * B_HEIGHT;
+    protected static final int B_WIDTH = pl.fox.neuralsnake.Launcher.WIDTH;
+    protected static final int B_HEIGHT = pl.fox.neuralsnake.Launcher.HEIGHT;
+    protected static final int ALL_MODULES = B_WIDTH * B_HEIGHT;
+    protected static final int MODULE_SIZE = 10;
 
     //private final java.util.List<Snake> snakes;
 
-    private final Snake snake;
-    private final Field field;
+    private Snake snake;
+    private Field field;
 
 
     public World(){
@@ -19,7 +20,18 @@ public class World {
 
         snake = new Snake();
         field = new Field();
+
+        snake.init();
+        field.init();
     }
+
+//    public void init(){
+//        snake = new Snake();
+//        field = new Field();
+//
+//        snake.init();
+//        field.init();
+//    }
 
     public void update(){
         snake.update();
