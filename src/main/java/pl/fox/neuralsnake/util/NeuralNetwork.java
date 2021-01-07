@@ -2,11 +2,16 @@ package pl.fox.neuralsnake.util;
 
 import java.util.stream.IntStream;
 
+
 public class NeuralNetwork {
 
     private Stage[] stages;
 
-    public NeuralNetwork(int[] stageSizes) {
+    private static final int DIVISIONS = 8;
+    private static final int INPUT_STAGE = (int) Math.pow(DIVISIONS, 2);
+    private static final int[] stageSizes = new int[] { INPUT_STAGE, (INPUT_STAGE / 2), (INPUT_STAGE / 2), DIVISIONS / 4 };
+
+    public NeuralNetwork() {
         stages = new Stage[stageSizes.length];
         Stage previous = null;
         for (int i = 0; i < stageSizes.length; i++) {
@@ -21,10 +26,7 @@ public class NeuralNetwork {
         return stages[stages.length - 1].getOutput();
     }
 
-    public int calculateCoefficientsNumber(boolean isSymmetrical, int[] stageSizes){
-        if (stageSizes.length < 2){
-            return 0;
-        }
+    public int calculateCoefficientsNumber(boolean isSymmetrical){
         int sum = 0;
         for (int i = 1; i < stageSizes.length; i++) {
             sum += (isSymmetrical) ? (stageSizes[i] * (stageSizes[i - 1] + 1) + 1) / 2 : stageSizes[i] * (stageSizes[i - 1] + 1);

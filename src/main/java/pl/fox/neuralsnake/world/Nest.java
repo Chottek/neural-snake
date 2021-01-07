@@ -37,7 +37,7 @@ public class Nest {
 
     private void genFirstGeneration(){
         snakes.clear();
-        IntStream.range(0, size).forEach(i -> snakes.add(new Snake()));
+        IntStream.range(0, size).forEach(i -> snakes.add(new Snake(null)));
         snakes.forEach(Snake::init);
 
         LOG.info("Initialized a Nest of {} snakes", size);

@@ -2,6 +2,7 @@ package pl.fox.neuralsnake.world;
 
 
 import pl.fox.neuralsnake.util.DNA;
+import pl.fox.neuralsnake.util.NeuralNetwork;
 
 import java.awt.*;
 
@@ -9,6 +10,7 @@ public class Snake {
 
     private static final int INITIAL_LENGTH = 3;
 
+    private NeuralNetwork brain;
     private DNA dna;
 
     private int[] x;
@@ -21,17 +23,17 @@ public class Snake {
 
     private boolean isUp, isDown, isLeft, isRight;
     private boolean isDead;
-
-    public Snake(){
-        dna = new DNA(true, 10); //TODO: Change 10 to a variable soon
-    }
+    private boolean isBrainSymetric;
 
     public Snake(DNA dna){
-        this.dna = dna;
+        brain = new NeuralNetwork();
+        int dnaLength = brain.calculateCoefficientsNumber(isBrainSymetric) + 1;
+
+        this.dna = (dna != null) ? dna : new DNA(true, dnaLength);
     }
 
+
     public void init(){
-        dna = new DNA(true, 10);  //TODO: Change 10 to a variable soon
         score = 0;
         age = 0;
         length = INITIAL_LENGTH;
@@ -44,6 +46,7 @@ public class Snake {
         isRight = true;
 
         //TODO: Randomize spawn and initial direction later
+        brain = new NeuralNetwork();
     }
 
     public void update(){
