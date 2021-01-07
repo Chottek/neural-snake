@@ -18,7 +18,6 @@ public class Snake {
 
     private int length;
     private int score;
-    private int fitness;
     private int health;
     private int age;
 
@@ -90,6 +89,6 @@ public class Snake {
     }
 
     public int getFitness() {
-        return fitness;
+        return score + (health / 4);
     }
 }
