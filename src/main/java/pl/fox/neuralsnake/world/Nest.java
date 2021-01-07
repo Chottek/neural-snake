@@ -21,16 +21,28 @@ public class Nest {
 
 
     private DNA bestDNA;
+    private double record;
 
     public Nest(int size){
         snakes = new java.util.ArrayList<>();
         this.size = size;
+        record = 0;
 
         genFirstGeneration();
     }
 
     public void update(){
-        snakes.forEach(Snake::update);
+        snakes.forEach(s -> {
+            s.update();
+
+            if (s.getFitness() > currentFittestValue) {
+                currentFittestValue = s.getFitness();
+            }
+            if (s.getFitness() > record) {
+                record = s.getFitness();
+                bestDNA = s.getDna();
+            }
+        });
     }
 
     public void render(Graphics2D g){

@@ -13,6 +13,7 @@ public class World {
     protected static final int FOOD_COUNT = 4;
 
     protected static final int APPLE_CALORIES = 10;
+    protected static final double HEALTH_SPOIL = 0.02D;
 
     private Nest nest;
     private Field field;
