@@ -6,12 +6,24 @@ public class Snake {
 
     private static final int INITIAL_LENGTH = 3;
 
-    private float x;
-    private float y;
+    private int[] x;
+    private int[] y;
     private int length;
+    private int score;
+
+    private boolean isUp, isDown, isLeft, isRight;
+    private boolean isDead;
 
     public Snake(){
         length = INITIAL_LENGTH;
+        score = 0;
+
+        x = new int[World.ALL_MODULES];
+        y = new int[World.ALL_MODULES];
+
+        isDead = false;
+        isUp = isLeft = isDown = false;
+        isRight = true;
     }
 
     public void update(){
@@ -23,11 +35,11 @@ public class Snake {
         g.drawRect(10, 10, 10, 10);
     }
 
-    public float getX() {
+    public int[] getX() {
         return x;
     }
 
-    public float getY() {
+    public int[] getY() {
         return y;
     }
 }
