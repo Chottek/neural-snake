@@ -1,6 +1,5 @@
 package pl.fox.neuralsnake.world;
 
-
 import pl.fox.neuralsnake.util.DNA;
 import pl.fox.neuralsnake.util.NeuralNetwork;
 
@@ -77,7 +76,7 @@ public class Snake {
     private void randomizeSpawn(){
         Random rand = new Random();
 
-        int iks = rand.nextInt(B_WIDTH) ;
+        int iks = rand.nextInt(B_WIDTH);
         int ygr = rand.nextInt(B_HEIGHT);
 
         for (int i = 0; i < length; i++) {
@@ -112,17 +111,13 @@ public class Snake {
             y[0] += MODULE_SIZE;
     }
 
-    private int getEnviromentalInfo(){
-        //Locate food, walls and modules, return direction
-        return 0;
-    }
 
     private void checkCollision() {
         if (IntStream.iterate(length, i -> i > 0, i -> i - 1).anyMatch(i -> (i > 3) && (x[0] == x[i]) && (y[0] == y[i]))) {
             isDead = true;
         }
 
-        if (y[0] < 0 || y[0] >= World.B_HEIGHT) isDead = true;
+        if (y[0] < 0 || y[0] >= World.B_HEIGHT - MODULE_SIZE) isDead = true;
         if (x[0] < 0 || x[0] >= World.B_WIDTH - MODULE_SIZE)  isDead = true;
     }
 
@@ -172,4 +167,12 @@ public class Snake {
     public double getDeathHue() {
         return deathHue;
     }
+
+    private int getEnviromentalInfo(){
+        return 0;
+    }
+
+
+
+
 }

@@ -7,9 +7,8 @@ public class NeuralNetwork {
 
     private Stage[] stages;
 
-    private static final int DIVISIONS = 8;
-    private static final int INPUT_STAGE = (int) Math.pow(DIVISIONS, 2);
-    private static final int[] stageSizes = new int[] { INPUT_STAGE, (INPUT_STAGE / 2), (INPUT_STAGE / 2), DIVISIONS / 4 };
+    private static final int INPUT_STAGE = 5;
+    private static final int[] stageSizes = new int[] { INPUT_STAGE, 4, 1};
 
     public NeuralNetwork() {
         stages = new Stage[stageSizes.length];
