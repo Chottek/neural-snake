@@ -45,4 +45,12 @@ public class Stage {
                 .map(b -> Arrays.toString(b) + "\n")
                 .collect(Collectors.joining("", "[", "]\n"));
     }
+
+    public byte[][] getCoefficients() {
+        return coefficients;
+    }
+
+    public double[] getOutput() {
+        return output;
+    }
 }
