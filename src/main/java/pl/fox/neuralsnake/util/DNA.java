@@ -6,15 +6,15 @@ public class DNA {
     private final java.util.Random random;
     private byte[] helix;
 
-    public DNA(int size) {
+    public DNA(boolean rand, int size) {
         random = new java.util.Random();
-        randomizeDNA(size);
+        randomizeDNA(rand, size);
     }
 
-    private void randomizeDNA(int size) {
+    private void randomizeDNA(boolean random, int size) {
         helix = new byte[size];
         for (int i = 0; i < size; i++) {
-            helix[i] = (random.nextInt(2) == 1) ? (byte) Math.floor(Math.random() * 256d) : 0;
+            helix[i] = random ? (byte) Math.floor(Math.random() * 256d) : 0;
         }
     }
 
