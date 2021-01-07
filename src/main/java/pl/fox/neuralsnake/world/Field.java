@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.util.List;
 
 public class Field {
 
@@ -41,7 +40,7 @@ public class Field {
         apples.forEach(a -> a.render(g));
     }
 
-    public List<Apple> getApples() {
+    public java.util.List<Apple> getApples() {
         return apples;
     }
 }
