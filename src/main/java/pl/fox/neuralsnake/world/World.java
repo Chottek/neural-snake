@@ -1,5 +1,7 @@
 package pl.fox.neuralsnake.world;
 
+import pl.fox.neuralsnake.Handler;
+
 import java.awt.*;
 
 public class World {
@@ -13,19 +15,22 @@ public class World {
     protected static final int FOOD_COUNT = 40;
 
     protected static final int APPLE_CALORIES = 10;
-    protected static final double HEALTH_SPOIL = 0.02D;
+    protected static final double HEALTH_SPOIL = 0.0001D;
 
     private Nest nest;
     private Field field;
 
     private boolean isPaused;
 
-    public World(){
+    private final Handler handler;
+
+    public World(Handler handler) {
+        this.handler = handler;
         init();
     }
 
     public void init(){
-        nest = new Nest(GENERATION_COUNT);
+        nest = new Nest(GENERATION_COUNT, handler);
         field = new Field();
         isPaused = false;
     }

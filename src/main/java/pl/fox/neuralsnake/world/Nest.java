@@ -2,6 +2,7 @@ package pl.fox.neuralsnake.world;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.fox.neuralsnake.Handler;
 import pl.fox.neuralsnake.util.DNA;
 import pl.fox.neuralsnake.util.GeneticUtils;
 
@@ -25,7 +26,10 @@ public class Nest {
     private DNA bestDNA;
     private double record;
 
-    public Nest(int size){
+    private final Handler handler;
+
+    public Nest(int size, Handler handler){
+        this.handler = handler;
         snakes = new java.util.ArrayList<>();
         this.size = size;
         record = 0;
@@ -52,7 +56,7 @@ public class Nest {
 
     private void genFirstGeneration(){
         snakes.clear();
-        IntStream.range(0, size).forEach(i -> snakes.add(new Snake(null)));
+        IntStream.range(0, size).forEach(i -> snakes.add(new Snake(null, handler)));
         snakes.forEach(Snake::init);
         generationCount = 1;
         LOG.info("Initialized a Nest of {} snakes", size);
@@ -97,7 +101,7 @@ public class Nest {
         DNA firstParent = pool.get(id1).getDna();
         DNA secondParent = pool.get(id2).getDna();
 
-        snakes.add(new Snake(GeneticUtils.byteWiseCrossover(firstParent, secondParent, mutationRate)));
+        snakes.add(new Snake(GeneticUtils.byteWiseCrossover(firstParent, secondParent, mutationRate), handler));
     }
 
 

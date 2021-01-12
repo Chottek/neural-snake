@@ -36,7 +36,7 @@ public class Stage {
     }
 
     private double sigmoid(double value){
-        return SIG_MULTIPLIER / ( 1 + Math.exp(-value/2D));
+        return 1 / ( 1 + Math.exp(-value));
     }
 
     @Override

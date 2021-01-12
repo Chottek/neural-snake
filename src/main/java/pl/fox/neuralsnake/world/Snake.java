@@ -1,11 +1,13 @@
 package pl.fox.neuralsnake.world;
 
+import pl.fox.neuralsnake.Handler;
 import pl.fox.neuralsnake.util.DNA;
-import pl.fox.neuralsnake.util.NeuralNetOne;
 import pl.fox.neuralsnake.util.NeuralNetwork;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 import static pl.fox.neuralsnake.world.World.*;
@@ -15,7 +17,7 @@ public class Snake {
     private static final int INITIAL_LENGTH = 3;
     private static final int MAX_VIEW_DISTANCE = 400;
 
-    private NeuralNetwork brain;
+    private final NeuralNetwork brain;
     private DNA dna;
 
     private int[] x;
@@ -23,19 +25,23 @@ public class Snake {
 
     private int length;
     private int score;
-    private int health;
-    private int age;
+    private double health;
+    private double age;
+    private int direction; // 0 - left, 1 - right, 2 - up, 3 - down
 
-    private boolean isUp, isDown, isLeft, isRight;
+
     private boolean isDead;
     private boolean isBrainSymetric;
 
     private double deathHue = 180;
 
-    public Snake(DNA dna){
+    private final Handler handler;
+
+    public Snake(DNA dna, Handler handler){
+        this.handler = handler;
         brain = new NeuralNetwork();
-       // int dnaLength = brain.calculateCoefficientsNumber(isBrainSymetric) + 1;
-       // this.dna = (dna != null) ? dna : new DNA(true, dnaLength);
+        int dnaLength = brain.calculateCoefficientsNumber(isBrainSymetric) + 1;
+        this.dna = (dna != null) ? dna : new DNA(true, dnaLength);
         reloadCoeffs();
     }
 
@@ -50,7 +56,6 @@ public class Snake {
         y = new int[World.ALL_MODULES];
 
         isDead = false;
-        isUp = isLeft = isDown = isRight = false;
         randomizeSpawn();
     }
 
@@ -60,9 +65,10 @@ public class Snake {
             return;
         }
 
-      //  manageHealth();
+        manageHealth();
         move();
         checkCollision();
+        think();
     }
 
     public void render(Graphics2D g){
@@ -85,12 +91,7 @@ public class Snake {
             y[i] = ygr;
         }
 
-        switch(rand.nextInt(4)){
-            case 0: isUp = true; break;
-            case 1: isDown = true; break;
-            case 2: isLeft = true; break;
-            case 3: isRight = true; break;
-        }
+        direction = rand.nextInt(4);
     }
 
     private void move(){
@@ -99,17 +100,12 @@ public class Snake {
             y[i] = y[(i - 1)];
         }
 
-        if(isLeft)
-            x[0] -= MODULE_SIZE;
-
-        if(isRight)
-            x[0] += MODULE_SIZE;
-
-        if(isUp)
-            y[0] -= MODULE_SIZE;
-
-        if(isDown)
-            y[0] += MODULE_SIZE;
+        switch(direction){
+            case 0: x[0] -= MODULE_SIZE; break;
+            case 1: x[0] += MODULE_SIZE; break;
+            case 2: y[0] -= MODULE_SIZE; break;
+            case 3: y[0] += MODULE_SIZE; break;
+        }
     }
 
 
@@ -120,6 +116,22 @@ public class Snake {
 
         if (y[0] < 0 || y[0] >= World.B_HEIGHT - MODULE_SIZE) isDead = true;
         if (x[0] < 0 || x[0] >= World.B_WIDTH - MODULE_SIZE)  isDead = true;
+    }
+
+    private void think(){
+        double[] inputs = getInputs();
+
+        double[] output = brain.calculateOutput(inputs);
+
+       // System.out.println(Arrays.toString(output));
+
+        double out = (DoubleStream.of(output).sum());
+
+
+       // System.out.println(out);
+
+        direction = (int) out;
+     //  System.err.println(direction);
     }
 
     private void manageHealth(){
@@ -134,17 +146,40 @@ public class Snake {
             score /= 2;
         }
 
-        age += 0.01D;
+        age += 0.1D;
     }
 
     private void reloadCoeffs(){
-//        if(isBrainSymetric){
-//            brain.loadSymmetrically(dna.getHelix());
-//        }else{
-//            brain.loadCoefficients(dna.getHelix());
-//        }
+        if(isBrainSymetric){
+            brain.loadSymmetrically(dna.getHelix());
+        }else{
+            brain.loadCoefficients(dna.getHelix());
+        }
     }
 
+    private double[] getInputs(){
+        double[] inputs = new double[4];
+
+        inputs[0] = getHeadX();
+        inputs[1] = getHeadY();
+
+        Apple closest = null;
+        double closestX = 999, closestY = 999;
+        for(Apple a: handler.getField().getApples()){
+            double ex = Math.abs(getHeadX() - a.getX());
+            double ygr = Math.abs(getHeadY() - a.getY());
+            if(ex < closestX && ygr < closestY){
+                closestX = ex;
+                closestY = ygr;
+                closest = a;
+            }
+        }
+
+        inputs[2] = closest.getX();
+        inputs[3] = closest.getY();
+
+        return inputs;
+    }
 
     //Getters / setters
 
@@ -181,7 +216,7 @@ public class Snake {
     }
 
     public int getFitness() {
-        return score + (health / 4);
+        return score + (int) (health / 4);
     }
 
     public double getDeathHue() {

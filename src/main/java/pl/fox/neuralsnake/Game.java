@@ -40,7 +40,7 @@ public class Game implements Runnable {
 
         handler = new Handler(this);
         keyInput = new KeyInput();
-        world = new World();
+        world = new World(handler);
         info = new Info();
     }
 
