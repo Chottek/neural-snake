@@ -1,14 +1,17 @@
 package pl.fox.neuralsnake.util;
 
+import java.awt.*;
 import java.util.stream.IntStream;
 
 public class DNA {
 
     private final java.util.Random random;
     private byte[] helix;
+    private final Color color;
 
-    public DNA(boolean rand, int size) {
+    public DNA(boolean rand, int size, Color color) {
         random = new java.util.Random();
+        this.color = color;
         randomizeDNA(rand, size);
     }
 
@@ -26,4 +29,7 @@ public class DNA {
         return helix;
     }
 
+    public Color getColor() {
+        return color;
+    }
 }

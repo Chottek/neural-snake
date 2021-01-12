@@ -12,7 +12,7 @@ public class World {
     protected static final int MODULE_SIZE = 10;
 
     protected static final int GENERATION_COUNT = 5;
-    protected static final int FOOD_COUNT = 40;
+    protected static final int FOOD_COUNT = 5;
 
     protected static final int APPLE_CALORIES = 10;
     protected static final double HEALTH_SPOIL = 0.0001D;
@@ -43,7 +43,7 @@ public class World {
         nest.update();
         field.update();
 
-        handleAppleGather();
+      //  handleAppleGather();
     }
 
     public void render(Graphics2D g){
@@ -54,6 +54,7 @@ public class World {
 
     private void handleAppleGather(){
         for(Snake s: nest.getSnakes()){
+            System.out.println(s.getHeadX());
             for(int i = 0; i < field.getApples().size(); i++){
                 if(s.getHeadX() == field.getApples().get(i).getX() && s.getHeadY() == field.getApples().get(i).getY()){
                     field.getApples().remove(i);

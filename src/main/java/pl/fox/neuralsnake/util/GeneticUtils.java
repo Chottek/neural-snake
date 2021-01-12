@@ -1,5 +1,6 @@
 package pl.fox.neuralsnake.util;
 
+import java.awt.*;
 import java.util.stream.IntStream;
 
 import static pl.fox.neuralsnake.util.Neuron.SIG_MULTIPLIER;
@@ -7,7 +8,7 @@ import static pl.fox.neuralsnake.util.Neuron.SIG_MULTIPLIER;
 public class GeneticUtils {
 
     public static DNA crossover(DNA first, DNA second, double probability) {
-        DNA newDNA = new DNA(false, first.getHelix().length);
+        DNA newDNA = new DNA(false, first.getHelix().length, Color.GREEN);
         int swapsNum = first.getHelix().length / 8;
         int[] swaps = new int[swapsNum + 1];
         IntStream.range(0, swaps.length - 1).forEach(i -> swaps[i] = (int) Math.floor(Math.random() * 8 * first.getHelix().length));
@@ -36,7 +37,7 @@ public class GeneticUtils {
     }
 
     public static DNA noiseCrossover(DNA first, DNA second, double probability) {
-        DNA newDNA = new DNA(false, first.getHelix().length);
+        DNA newDNA = new DNA(false, first.getHelix().length, Color.GREEN);
         int swapsNum = first.getHelix().length / 10;
         int[] swaps = new int[swapsNum + 1];
         IntStream.range(0, swaps.length - 1).forEach(i -> swaps[i] = (int) Math.floor(Math.random() * first.getHelix().length));
@@ -62,7 +63,7 @@ public class GeneticUtils {
     }
 
     public static DNA byteWiseCrossover(DNA first, DNA second, double probability) {
-        DNA newDNA = new DNA(false, first.getHelix().length);
+        DNA newDNA = new DNA(false, first.getHelix().length, Color.GREEN);
         int swapsNum = first.getHelix().length / 8;
         int[] swaps = new int[swapsNum + 1];
         IntStream.range(0, swaps.length - 1).forEach(i -> swaps[i] = (int) Math.floor(Math.random() * first.getHelix().length) * 8);

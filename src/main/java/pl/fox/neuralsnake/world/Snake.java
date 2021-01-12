@@ -41,7 +41,7 @@ public class Snake {
         this.handler = handler;
         brain = new NeuralNetwork();
         int dnaLength = brain.calculateCoefficientsNumber(isBrainSymetric) + 1;
-        this.dna = (dna != null) ? dna : new DNA(true, dnaLength);
+        this.dna = (dna != null) ? dna : new DNA(true, dnaLength, Color.GREEN);
         reloadCoeffs();
     }
 
@@ -67,17 +67,23 @@ public class Snake {
 
         manageHealth();
         move();
-        checkCollision();
+        handleAppleGather();
+      //  checkCollision();
         think();
     }
 
     public void render(Graphics2D g){
         g.setColor(Color.RED); //Head color
         g.fillRect(x[0], y[0], MODULE_SIZE, MODULE_SIZE);
-        //g.setColor(dna.getColor()); //body color
+        g.setColor(processedColor()); //body color
         for(int i = 1; i < length; i++){
-            g.drawRect(x[i], y[i], MODULE_SIZE, MODULE_SIZE);
+            g.drawRect(x[i], y[i], MODULE_SIZE, MODULE_SIZE);  //add deathHue
         }
+    }
+
+    private Color processedColor(){
+        Color c = dna.getColor();
+        return new Color(c.getRed(), c.getGreen(), c.getBlue(), (int) deathHue);
     }
 
     private void randomizeSpawn(){
@@ -110,7 +116,7 @@ public class Snake {
 
 
     private void checkCollision() {
-        if (IntStream.iterate(length, i -> i > 0, i -> i - 1).anyMatch(i -> (i > 3) && (x[0] == x[i]) && (y[0] == y[i]))) {
+        if (IntStream.iterate(length, i -> i > 0, i -> i - 1).anyMatch(i -> (i > 4) && (x[0] == x[i]) && (y[0] == y[i]))) {
             isDead = true;
         }
 
@@ -127,10 +133,14 @@ public class Snake {
 
         double out = (DoubleStream.of(output).sum());
 
-
        // System.out.println(out);
 
         direction = (int) out;
+
+        if((direction == 0 && out == 1) || (direction == 1 && out == 0) ||
+                (direction == 2 && out == 3) || (direction == 3 && out == 2)){
+            think();
+        }
      //  System.err.println(direction);
     }
 
@@ -147,6 +157,19 @@ public class Snake {
         }
 
         age += 0.1D;
+    }
+
+    private void handleAppleGather(){
+        java.util.List<Apple> apples = handler.getField().getApples();
+
+        for(int i = 0; i < handler.getField().getApples().size(); i++){
+            if(getHeadX() == apples.get(i).getX() && getHeadY() == apples.get(i).getY()){
+                handler.getField().getApples().remove(i);
+                addLength();
+                addScore(APPLE_CALORIES);
+                handler.getField().generateApples();
+            }
+        }
     }
 
     private void reloadCoeffs(){
