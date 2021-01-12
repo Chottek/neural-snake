@@ -6,12 +6,10 @@ public class Apple {
 
     private final int x;
     private final int y;
-    private final int calories;
 
-    public Apple(int x, int y, int calories){
+    public Apple(int x, int y){
         this.x = x;
         this.y = y;
-        this.calories = calories;
     }
 
     public void update(){
@@ -31,7 +29,5 @@ public class Apple {
         return y;
     }
 
-    public int getCalories() {
-        return calories;
-    }
+
 }

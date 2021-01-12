@@ -1,6 +1,7 @@
 package pl.fox.neuralsnake.world;
 
 import pl.fox.neuralsnake.util.DNA;
+import pl.fox.neuralsnake.util.NeuralNetOne;
 import pl.fox.neuralsnake.util.NeuralNetwork;
 
 import java.awt.*;
@@ -33,8 +34,8 @@ public class Snake {
 
     public Snake(DNA dna){
         brain = new NeuralNetwork();
-        int dnaLength = brain.calculateCoefficientsNumber(isBrainSymetric) + 1;
-        this.dna = (dna != null) ? dna : new DNA(true, dnaLength);
+       // int dnaLength = brain.calculateCoefficientsNumber(isBrainSymetric) + 1;
+       // this.dna = (dna != null) ? dna : new DNA(true, dnaLength);
         reloadCoeffs();
     }
 
@@ -67,7 +68,7 @@ public class Snake {
     public void render(Graphics2D g){
         g.setColor(Color.RED); //Head color
         g.fillRect(x[0], y[0], MODULE_SIZE, MODULE_SIZE);
-        g.setColor(dna.getColor()); //body color
+        //g.setColor(dna.getColor()); //body color
         for(int i = 1; i < length; i++){
             g.drawRect(x[i], y[i], MODULE_SIZE, MODULE_SIZE);
         }
@@ -137,11 +138,11 @@ public class Snake {
     }
 
     private void reloadCoeffs(){
-        if(isBrainSymetric){
-            brain.loadSymmetrically(dna.getHelix());
-        }else{
-            brain.loadCoefficients(dna.getHelix());
-        }
+//        if(isBrainSymetric){
+//            brain.loadSymmetrically(dna.getHelix());
+//        }else{
+//            brain.loadCoefficients(dna.getHelix());
+//        }
     }
 
 

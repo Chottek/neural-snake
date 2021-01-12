@@ -2,6 +2,8 @@ package pl.fox.neuralsnake.util;
 
 import java.util.stream.IntStream;
 
+import static pl.fox.neuralsnake.util.Neuron.SIG_MULTIPLIER;
+
 public class GeneticUtils {
 
     public static DNA crossover(DNA first, DNA second, double probability) {
@@ -83,6 +85,10 @@ public class GeneticUtils {
             newDNA.getHelix()[i / 8] |= (bit << (i % 8));
         }
         return newDNA;
+    }
+
+    public static double sigmoid(double value) {
+        return SIG_MULTIPLIER / (1 + Math.exp(-value / 2D));
     }
 
 

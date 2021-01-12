@@ -29,7 +29,7 @@ public class Field {
         rand = (int) (Math.random() * RAND_POS_Y);
         y = (rand * World.MODULE_SIZE);
 
-        apples.add(new Apple(x, y, World.APPLE_CALORIES));
+        apples.add(new Apple(x, y));
 
         if(apples.size() < World.FOOD_COUNT){
             generateApples();

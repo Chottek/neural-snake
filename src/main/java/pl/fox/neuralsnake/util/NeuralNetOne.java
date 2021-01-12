@@ -3,13 +3,13 @@ package pl.fox.neuralsnake.util;
 import java.util.stream.IntStream;
 
 
-public class NeuralNetwork {
+public class NeuralNetOne {
 
     private final Stage[] stages;
     private static final int INPUT_STAGE = 14;
     private static final int[] stageSizes = new int[] { INPUT_STAGE, 7, 4};
 
-    public NeuralNetwork() {
+    public NeuralNetOne() {
         stages = new Stage[stageSizes.length];
         Stage previous = null;
         for (int i = 0; i < stageSizes.length; i++) {
